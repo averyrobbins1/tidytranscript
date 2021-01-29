@@ -7,9 +7,9 @@
 scrape_birthday(.data, tibble = TRUE)
 }
 \arguments{
-\item{tibble}{A logical, specifying if a tibble should be returned or not.}
+\item{.data}{A character vector returned from the read_transcript function.}
 
-\item{data}{A character vector returned from the read_transcript function.}
+\item{tibble}{A logical, specifying if a tibble should be returned or not.}
 }
 \value{
 A tibble by default, otherwise a double vector.
