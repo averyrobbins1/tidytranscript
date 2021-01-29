@@ -18,5 +18,6 @@ Imports:
     readr,
     magrittr,
     tibble,
-    tidyr
+    tidyr,
+    tidyselect
 RoxygenNote: 7.1.1
