@@ -6,7 +6,7 @@
 #' @examples
 #' get_example_file()
 get_example_file <- function() {
-    tidytranscript::system.file(
+    system.file(
         "extdata",
         "example_transcript.pdf",
         package="tidytranscript")
