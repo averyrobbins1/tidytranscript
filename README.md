@@ -30,14 +30,11 @@ dat <- read_transcript('data/my_transcript.pdf')
 scrape_major(dat)
 ```
 
-The main scraping functions are the following: - `scrape_major` -
-returns a student’s major - `scrape_birthday` - returns a student’s
-birthday - `scrape_earned_credits` - returns the total amount of credits
-earned by the student, including both transfer credits and credits
-acquired while at BYU - Idaho - `scrape_grades` - returns only those
-grades earned at BYU - Idaho (transfer grades were not important for our
-use case. If desired, feel free to figure that out and submit a pull
-request.)
+The main scraping functions are the following: 
+* `scrape_major` - returns a student’s major 
+* `scrape_birthday` - returns a student’s birthday 
+* `scrape_earned_credits` - returns the total amount of credits earned by the student, including both transfer credits and credits acquired while at BYU - Idaho 
+* `scrape_grades` - returns only those grades earned at BYU - Idaho (transfer grades were not important for our use case. If desired, feel free to figure that out and submit a pull request.)
 
 To make life easier, all of the necessary functions have been compiled
 into one master function `tidytranscript::tidytranscript`. Simply input
