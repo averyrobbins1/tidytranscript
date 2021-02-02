@@ -18,5 +18,7 @@ A tibble by default, otherwise a double vector.
 Scrape a student's birthday from their transcript
 }
 \examples{
+\dontrun{
 scrape_birthday(dat)
+}
 }

@@ -7,7 +7,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' scrape_birthday(dat)
+#' }
 scrape_birthday <- function(.data, tibble = TRUE) {
     `%>%` <- magrittr::`%>%`
 

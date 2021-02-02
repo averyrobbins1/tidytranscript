@@ -18,5 +18,7 @@ A tibble by default, otherwise a double vector.
 Scrape a student's credits earned while at BYU-I from their transcript
 }
 \examples{
+\dontrun{
 scrape_earned_credits(dat)
+}
 }

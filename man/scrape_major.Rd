@@ -18,5 +18,7 @@ A tibble by default, otherwise a character vector.
 Scrape a student's major from their transcript
 }
 \examples{
+\dontrun{
 scrape_major(dat)
+}
 }

@@ -16,5 +16,7 @@ A character vector
 Read a single PDF into a character vector
 }
 \examples{
-read_transcript('data/my_transcript.pdf')
+\dontrun{
+dat <- read_transcript('data/my_transcript.pdf')
+}
 }

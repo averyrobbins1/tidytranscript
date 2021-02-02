@@ -7,7 +7,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' scrape_major(dat)
+#' }
 scrape_major <- function(.data, tibble = TRUE) {
     `%>%` <- magrittr::`%>%`
 
