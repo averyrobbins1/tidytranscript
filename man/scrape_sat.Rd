@@ -16,5 +16,7 @@ A tibble of SAT test scores
 Scrape SAT scores from a student's transcript
 }
 \examples{
+\dontrun{
 scrape_sat(dat)
+}
 }

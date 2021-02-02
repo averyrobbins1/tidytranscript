@@ -16,5 +16,7 @@ A tibble of ACT test scores
 Scrape ACT scores from a student's transcript
 }
 \examples{
+\dontrun{
 scrape_act(dat)
+}
 }

@@ -16,5 +16,7 @@ A tibble with all of the data that we care about
 Scrape all desired data from a student's transcript
 }
 \examples{
+\dontrun{
 tidytranscript('data_raw/my_transcript.pdf')
+}
 }

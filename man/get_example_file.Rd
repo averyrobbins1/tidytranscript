@@ -13,5 +13,7 @@ A file path
 Get the file path to the example transcript within the package
 }
 \examples{
-get_example_file()
+\dontrun{
+get_example_file(dat)
+}
 }

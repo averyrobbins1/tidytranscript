@@ -4,7 +4,9 @@
 #' @export
 #'
 #' @examples
-#' get_example_file()
+#' \dontrun{
+#' get_example_file(dat)
+#' }
 get_example_file <- function() {
     system.file(
         "extdata",

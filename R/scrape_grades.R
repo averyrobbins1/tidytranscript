@@ -6,7 +6,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' scrape_grades(dat)
+#' }
 scrape_grades <- function(.data) {
 
     `%>%` <- magrittr::`%>%`

@@ -6,7 +6,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tidytranscript('data_raw/my_transcript.pdf')
+#' }
 tidytranscript <- function(file) {
 
     dat <- tidytranscript::read_transcript(file)

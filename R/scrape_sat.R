@@ -6,7 +6,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' scrape_sat(dat)
+#' }
 scrape_sat <- function(.data) {
     `%>%` <- magrittr::`%>%`
 

@@ -16,5 +16,7 @@ A tibble of SATR test scores
 Scrape SATR scores from a student's transcript
 }
 \examples{
+\dontrun{
 scrape_satr(dat)
+}
 }

@@ -7,7 +7,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' scrape_earned_credits(dat)
+#' }
 scrape_earned_credits <- function(.data, tibble = TRUE) {
     `%>%` <- magrittr::`%>%`
 

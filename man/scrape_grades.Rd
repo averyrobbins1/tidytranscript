@@ -16,5 +16,7 @@ A tibble with four resulting columns: course, credit, grade & semester
 Scrape a student's grades earned at BYUI from their transcript
 }
 \examples{
+\dontrun{
 scrape_grades(dat)
+}
 }

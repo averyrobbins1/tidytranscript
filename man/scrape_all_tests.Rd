@@ -16,5 +16,7 @@ A tibble of available test scores
 Scrape all available test scores from a student's transcript
 }
 \examples{
+\dontrun{
 scrape_all_tests(dat)
+}
 }
