@@ -4,7 +4,7 @@
 \alias{tidytranscript}
 \title{Scrape all desired data from a student's transcript}
 \usage{
-tidytranscript(file)
+tidytranscript(file, normalize_tests = FALSE)
 }
 \arguments{
 \item{file}{A path to a file (either a single string or a raw vector)}
