@@ -21,7 +21,7 @@ tidytranscript <- function(file, normalize_tests = FALSE) {
         major = tidytranscript::scrape_major(dat, FALSE),
         earned_credits = tidytranscript::scrape_earned_credits(dat, FALSE),
         test_composite = tests$test_composite,
-        test_english = tests$tests_english,
+        test_english = tests$test_english,
         test_math = tests$test_math,
         test_science = tests$test_science
     )
