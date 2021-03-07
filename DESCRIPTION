@@ -20,5 +20,6 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    vctrs
+    vctrs,
+    recipes
 RoxygenNote: 7.1.1
