@@ -34,7 +34,8 @@ scrape_act <- function(.data) {
                           TRUE, FALSE)) %>%
         dplyr::filter(test_data == TRUE) %>%
         dplyr::select(value) %>%
-        dplyr::mutate(date = stringr::str_extract(value, '\\d{2}\\/\\d{2}\\/\\d{2}'),
+        dplyr::mutate(
+            date = stringr::str_extract(value, '\\d{2}\\/\\d{2}\\/\\d{2}'),
                test = stringr::str_extract(value, 'ACT'),
                info = ifelse(is.na(date)|is.na(test),
                              value, NA)
@@ -42,8 +43,12 @@ scrape_act <- function(.data) {
         tidyr::fill(date, test) %>%
         dplyr::filter(!is.na(info)) %>%
         dplyr::select(-value) %>%
-        dplyr::mutate(info = stringr::str_trim(info) %>% stringr::str_squish()) %>%
-        tidyr::separate(info, into = c('ENG', 'MATH', 'READ', 'SCI', 'COMP'), sep = " ") %>%
+        dplyr::mutate(
+            info = stringr::str_trim(info) %>% stringr::str_squish()
+            ) %>%
+        tidyr::separate(info,
+                        into = c('ENG', 'MATH', 'READ', 'SCI', 'COMP'),
+                        sep = " ") %>%
         dplyr::filter(ENG != "ENG") %>%
         tidyr::pivot_longer(cols = c(ENG, MATH, READ, SCI, COMP),
                      names_to = 'subject', values_to = 'score') %>%
