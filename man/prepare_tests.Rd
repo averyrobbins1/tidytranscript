@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepare_tests.R
 \name{prepare_tests}
 \alias{prepare_tests}
-\title{Scrape all desired data from a student's transcript}
+\title{Scrape standardized tests from a student's transcript}
 \usage{
 prepare_tests(.data, normalize = FALSE)
 }
@@ -13,7 +13,7 @@ prepare_tests(.data, normalize = FALSE)
 A tibble with all of the test scores normalized
 }
 \description{
-Scrape all desired data from a student's transcript
+Scrape standardized tests from a student's transcript
 }
 \examples{
 \dontrun{

@@ -1,4 +1,4 @@
-#' Scrape all desired data from a student's transcript
+#' Scrape standardized tests from a student's transcript
 #'
 #' @param .data A character vector returned from the read_transcript function.
 #'
