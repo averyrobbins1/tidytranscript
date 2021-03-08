@@ -2,7 +2,8 @@
 % Please edit documentation in R/scrape_earned_credits.R
 \name{scrape_earned_credits}
 \alias{scrape_earned_credits}
-\title{Scrape a student's credits earned while at BYU-I from their transcript}
+\title{Scrape a student's credits earned while at BYU-I from their transcript
+Does not work currently, do not use}
 \usage{
 scrape_earned_credits(.data, tibble = TRUE)
 }
@@ -16,6 +17,7 @@ A tibble by default, otherwise a double vector.
 }
 \description{
 Scrape a student's credits earned while at BYU-I from their transcript
+Does not work currently, do not use
 }
 \examples{
 \dontrun{

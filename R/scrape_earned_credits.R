@@ -1,4 +1,5 @@
 #' Scrape a student's credits earned while at BYU-I from their transcript
+#' Does not work currently, do not use
 #'
 #' @param .data A character vector returned from the read_transcript function.
 #' @param tibble A logical, specifying if a tibble should be returned or not.
