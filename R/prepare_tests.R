@@ -15,6 +15,16 @@ prepare_tests <- function(.data, normalize = FALSE) {
 
     tests <- scrape_all_tests(.data)
 
+    if (nrow(tests) == 0) {
+        return(
+            tibble::tribble(
+                ~test_composite,~test_english,~test_math,~test_science,
+                NA_real_,      NA_real_,      NA_real_,  NA_real_
+
+            )
+        )
+    }
+
     if (purrr::has_element(tests$test, 'ACT')) {
         tests <- dplyr::filter(tests, test == 'ACT')
     } else if (purrr::has_element(tests$test, 'SAT')) {
