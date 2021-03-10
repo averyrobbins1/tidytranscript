@@ -50,8 +50,14 @@ prepare_tests <- function(.data, normalize = FALSE) {
             recipes::prep() %>%
             recipes::bake(new_data = NULL)
     }
-    tests %>%
+    tests <- tests %>%
         tidyr::pivot_wider(names_from = subject, values_from = score)
+
+    if (length(names(tests)) < 4) {
+        tests <- mutate(tests, test_science = NA_real_)
+    }
+
+    tests
 }
 
 
