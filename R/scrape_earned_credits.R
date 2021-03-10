@@ -14,11 +14,24 @@
 scrape_earned_credits <- function(.data, tibble = TRUE) {
     `%>%` <- magrittr::`%>%`
 
-    dat <- .data %>%
+    len <- .data %>% purrr::simplify() %>% length()
+
+    half1 <- .data %>%
+        .[11:len] %>%
+        stringr::str_sub(start = 1L, end = 57L)
+
+    half2 <- .data %>%
+        .[11:len] %>%
+        stringr::str_sub(start = 58L)
+
+    combined_vector <- vctrs::vec_c(half1, half2)
+
+    dat <- combined_vector %>%
         tibble::enframe(name = 'row_num', value = 'text') %>%
         dplyr::mutate(end = stringr::str_match(text, 'End of Transcript')) %>%
         tidyr::fill(end, .direction = "down") %>%
         dplyr::filter(end == 'End of Transcript' & stringr::str_detect(text, 'cum')) %>%
+        dplyr::slice(1) %>%
         dplyr::select(-row_num, -end) %>%
         dplyr::mutate(earned = stringr::str_remove(text, '\\(?[0-9,.]+\\)?') %>%
                           stringr::str_extract('\\(?[0-9,.]+\\)?') %>%
@@ -31,3 +44,23 @@ scrape_earned_credits <- function(.data, tibble = TRUE) {
         dat
     }
 }
+
+
+
+# len <- dat %>% purrr::simplify() %>% length()
+#
+# half1 <- dat %>%
+#     .[11:len] %>%
+#     stringr::str_sub(start = 1L, end = 57L)
+#
+# half2 <- dat %>%
+#     .[11:len] %>%
+#     stringr::str_sub(start = 58L)
+#
+# combined_vector <- vctrs::vec_c(half1, half2)
+#
+# combined_vector
+#
+# combined_vector %>%
+#     enframe(name = NULL, value = 'text') %>%
+#     filter(str_detect(text, 'Semester|cum'))
