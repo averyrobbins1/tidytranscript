@@ -45,22 +45,46 @@ scrape_earned_credits <- function(.data, tibble = TRUE) {
     }
 }
 
+pdf <- fs::dir_ls('../sp_praxis/data_raw/pdf examples')
 
+dat <- read_transcript(pdf[5])
 
-# len <- dat %>% purrr::simplify() %>% length()
-#
-# half1 <- dat %>%
-#     .[11:len] %>%
-#     stringr::str_sub(start = 1L, end = 57L)
-#
-# half2 <- dat %>%
-#     .[11:len] %>%
-#     stringr::str_sub(start = 58L)
-#
-# combined_vector <- vctrs::vec_c(half1, half2)
-#
-# combined_vector
-#
-# combined_vector %>%
-#     enframe(name = NULL, value = 'text') %>%
-#     filter(str_detect(text, 'Semester|cum'))
+temp <- function(dat) {
+    len <- dat %>% purrr::simplify() %>% length()
+
+    half1 <- dat %>%
+        .[11:len] %>%
+        stringr::str_sub(start = 1L, end = 57L)
+
+    half2 <- dat %>%
+        .[11:len] %>%
+        stringr::str_sub(start = 58L)
+
+    combined_vector <- vctrs::vec_c(half1, half2)
+
+    combined_vector
+
+    combined_vector %>%
+        enframe(name = NULL, value = 'text') %>%
+        mutate(text = str_trim(text)) %>%
+        filter(str_detect(text, 'Semester|Session|^cum')) %>%
+        mutate(sem = str_detect(text, 'Semester|Session'),
+               sem = ifelse(sem == TRUE, text, NA),
+               sem = str_remove_all(sem, '-') %>%
+                   str_remove(' Semester|Session') %>%
+                   str_trim()
+        ) %>%
+        fill(sem, .direction = 'down') %>%
+        filter(str_detect(text, 'cum'),
+               !is.na(sem)) %>%
+        mutate(text = str_trim(text) %>%
+                   str_replace_all('\\s+', '_')) %>%
+        separate(col = text,
+                 into = c('cum', 'attempt', 'earn', 'pass', 'quality', 'points', 'gpa'),
+                 sep = '_') %>%
+        mutate(sem = str_remove(sem, '\\s\\(cont\\.\\)')) %>%
+        select(earn, sem) %>%
+        distinct()
+}
+
+# map(pdf, ~ read_transcript(.x) %>% temp())
