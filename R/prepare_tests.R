@@ -9,7 +9,7 @@
 #' \dontrun{
 #' prepare_tests('data_raw/my_transcript.pdf')
 #' }
-prepare_tests <- function(.data, normalize = FALSE) {
+prepare_tests <- function(.data) {
 
     `%>%` <- magrittr::`%>%`
 
@@ -52,14 +52,6 @@ prepare_tests <- function(.data, normalize = FALSE) {
         dplyr::group_by(subject) %>%
         dplyr::summarize(score = mean(score, na.rm = TRUE)) %>%
         dplyr::ungroup()
-
-    if (normalize) {
-        tests <- tests %>%
-            recipes::recipe() %>%
-            recipes::step_normalize(score) %>%
-            recipes::prep() %>%
-            recipes::bake(new_data = NULL)
-    }
 
     tests <- tests %>%
         tidyr::pivot_wider(names_from = subject, values_from = score)

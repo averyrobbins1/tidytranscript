@@ -4,7 +4,7 @@
 \alias{prepare_tests}
 \title{Scrape standardized tests from a student's transcript}
 \usage{
-prepare_tests(.data, normalize = FALSE)
+prepare_tests(.data)
 }
 \arguments{
 \item{.data}{A character vector returned from the read_transcript function.}
