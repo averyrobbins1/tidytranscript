@@ -9,11 +9,11 @@
 #' \dontrun{
 #' tidytranscript('data_raw/my_transcript.pdf')
 #' }
-tidytranscript <- function(file, normalize_tests = FALSE) {
+tidytranscript <- function(file) {
 
     dat <- tidytranscript::read_transcript(file)
 
-    tests <- tidytranscript::prepare_tests(dat, normalize = normalize_tests)
+    tests <- tidytranscript::prepare_tests(dat)
 
     dplyr::mutate(
         tidytranscript::scrape_grades(dat),
