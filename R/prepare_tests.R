@@ -42,6 +42,17 @@ prepare_tests <- function(.data) {
         tests <- dplyr::filter(tests, test == 'ACT') %>%
             dplyr::mutate(score = min_max(score, 1, 36))
 
+    } else if (purrr::has_element(tests$test, 'SATR')) {
+
+        tests <- dplyr::filter(tests, test == 'SATR') %>%
+            dplyr::mutate(
+                score = dplyr::case_when(
+                    subject == 'READING' |
+                    subject == 'WRITING'   ~ min_max(score, 10, 40),
+                    subject == 'COMPOSITE' ~ min_max(score, 400, 1600),
+                    TRUE                   ~ min_max(score, 200, 800)
+                )
+            )
     } else if (purrr::has_element(tests$test, 'SAT')) {
 
         tests <- dplyr::filter(tests, test == 'SAT') %>%
@@ -54,17 +65,6 @@ prepare_tests <- function(.data) {
                 )
             )
 
-    } else if (purrr::has_element(tests$test, 'SATR')) {
-
-        tests <- dplyr::filter(tests, test == 'SATR') %>%
-            dplyr::mutate(
-                score = dplyr::case_when(
-                    subject == 'READING' |
-                    subject == 'WRITING'   ~ min_max(score, 10, 40),
-                    subject == 'COMPOSITE' ~ min_max(score, 400, 1600),
-                    TRUE                   ~ min_max(score, 200, 800)
-                )
-            )
     }
 
     english <- 'eng|english|read|reading|writ|write|writing'
@@ -96,7 +96,6 @@ prepare_tests <- function(.data) {
     } else if (length(names(tests)) < 4) {
         tests <- dplyr::mutate(tests, test_science = NA_real_)
     }
-
     tests
 }
 
