@@ -13,8 +13,13 @@ prepare_tests <- function(.data) {
 
     `%>%` <- magrittr::`%>%`
 
-    tests <- scrape_all_tests(.data)
+    # input for prepare_tests will first go through scrape_all_tests
+    # is this poor design? possibly.
+    tests <- tidytranscript::scrape_all_tests(.data)
 
+
+    # return this tibble if the student doesn't have any tests
+    # on their transcript
     if (nrow(tests) == 0) {
         return(
             tibble::tribble(
@@ -25,22 +30,51 @@ prepare_tests <- function(.data) {
         )
     }
 
-    if (purrr::has_element(tests$test, 'ACT')) {
-        tests <- dplyr::filter(tests, test == 'ACT')
-    } else if (purrr::has_element(tests$test, 'SAT')) {
-        tests <- dplyr::filter(tests, test == 'SAT')
-    } else if (purrr::has_element(tests$test, 'SATR')) {
-        tests <- dplyr::filter(tests, test == 'SATR')
+    tests <- tests %>% dplyr::mutate(score = as.double(score))
+
+    # custom min max function for ACT/SAT
+    min_max <- function(x, min, max){
+        (x - min) / (max - min)
     }
 
-    english <- 'eng|english|read|reading|write|writing'
+    if (purrr::has_element(tests$test, 'ACT')) {
+
+        tests <- dplyr::filter(tests, test == 'ACT') %>%
+            dplyr::mutate(score = min_max(score, 1, 36))
+
+    } else if (purrr::has_element(tests$test, 'SAT')) {
+
+        tests <- dplyr::filter(tests, test == 'SAT') %>%
+            dplyr::mutate(
+                score = dplyr::case_when(
+                    subject %in% c('WRIT', 'MATH', 'CRIT_READ')
+                                           ~ min_max(score, 200, 800),
+                    subject == 'COMPOSITE' ~ min_max(score, 400, 1600),
+                    TRUE                   ~ min_max(score, 200, 800)
+                )
+            )
+
+    } else if (purrr::has_element(tests$test, 'SATR')) {
+
+        tests <- dplyr::filter(tests, test == 'SATR') %>%
+            dplyr::mutate(
+                score = dplyr::case_when(
+                    subject == 'READING' |
+                    subject == 'WRITING'   ~ min_max(score, 10, 40),
+                    subject == 'COMPOSITE' ~ min_max(score, 400, 1600),
+                    TRUE                   ~ min_max(score, 200, 800)
+                )
+            )
+    }
+
+    english <- 'eng|english|read|reading|writ|write|writing'
     math <- 'math|mathematics'
     comp <- 'comp|composite'
     science <- 'sci|science'
 
     tests <- tests %>%
         dplyr::transmute(subject = stringr::str_to_lower(subject),
-                         score = as.double(score)) %>%
+                         score) %>%
         dplyr::mutate(
             subject = as.character(subject),
             subject = dplyr::case_when(
@@ -56,8 +90,11 @@ prepare_tests <- function(.data) {
     tests <- tests %>%
         tidyr::pivot_wider(names_from = subject, values_from = score)
 
-    if (length(names(tests)) < 4) {
-        tests <- mutate(tests, test_science = NA_real_)
+    if (length(names(tests)) < 3) {
+        tests <- dplyr::mutate(tests, test_science = NA_real_) %>%
+            dplyr::mutate(test_composite = NA_real_, .before = 'test_english')
+    } else if (length(names(tests)) < 4) {
+        tests <- dplyr::mutate(tests, test_science = NA_real_)
     }
 
     tests
